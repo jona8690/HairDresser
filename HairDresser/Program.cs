@@ -2,26 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace HairDresser
 {
     class Program
     {
-        Scissors one = new Scissors();
-        Scissors two = new Scissors();
-        Scissors three = new Scissors();
-        Scissors four = new Scissors();
-        Scissors five = new Scissors();
-        Scissors six = new Scissors();
-
-        HairDresser A = new HairDresser();
-        HairDresser B = new HairDresser();
-        HairDresser C = new HairDresser();
-        HairDresser D = new HairDresser();
-        HairDresser E = new HairDresser();
-        HairDresser F = new HairDresser();
-
 
         static void Main(string[] args)
         {
@@ -31,7 +17,44 @@ namespace HairDresser
 
         private void Run()
         {
+            Scissors one = new Scissors();
+            Scissors two = new Scissors();
+            Scissors three = new Scissors();
+            Scissors four = new Scissors();
+            Scissors five = new Scissors();
+            Scissors six = new Scissors();
+
+            Chair A = new Chair(six, one,"A");
+            Chair B = new Chair(one, two,"B");
+            Chair C = new Chair(two, three,"C");
+            Chair D = new Chair(three, four,"D");
+            Chair E = new Chair(four, five,"E");
+            Chair F = new Chair(five, six,"F");
+
+            Thread hairDresserA = new Thread(A.CutHair);
+            Thread hairDresserB = new Thread(B.CutHair);
+            Thread hairDresserC= new Thread(C.CutHair);
+            Thread hairDresserD = new Thread(D.CutHair);
+            Thread hairDresserE = new Thread(E.CutHair);
+            Thread hairDresserF = new Thread(F.CutHair);
+
+            hairDresserA.Start();
+            hairDresserB.Start();
+            hairDresserC.Start();
+            hairDresserD.Start();
+            hairDresserE.Start();
+            hairDresserF.Start();
+
+            hairDresserA.Join();
+            hairDresserB.Join();
+            hairDresserC.Join();
+            hairDresserD.Join();
+            hairDresserE.Join();
+            hairDresserF.Join();
+            Console.ReadKey();
 
         }
+
+
     }
 }

@@ -8,5 +8,6 @@ namespace HairDresser
 {
     class Scissors
     {
+        public object locker = new object();
     }
 }
