@@ -42,12 +42,6 @@ namespace HairDresser
                 }
                 else hasRight = false;
 
-                if (hasLeft && hasRight)
-                {
-                    Console.WriteLine("Hair dresser " + Name + " is cutting!");
-                    this.Period++;
-                }
-
                 if (hasLeft && !hasRight)
                 {
                     Monitor.Exit(left.locker);
@@ -60,6 +54,14 @@ namespace HairDresser
                     hasRight = false;
                 }
 
+                if (hasLeft && hasRight)
+                {
+                    Console.WriteLine("Hair dresser " + Name + " is cutting!");
+                    this.Period++;
+
+                    ReleaseLocks();
+                }
+
                 Thread.Sleep(random.Next(100, 600));
 
                 //if (this.Period != 10)
@@ -70,7 +72,18 @@ namespace HairDresser
                 //}
             }
             Console.WriteLine("Hair dresser " + Name + " is going home!");
-            ReleaseLocks();
+
+            if (hasLeft)
+            {
+                Monitor.Exit(left.locker);
+                hasLeft = false;
+            }
+
+            if (hasRight)
+            {
+                Monitor.Exit(right.locker);
+                hasRight = false;
+            }
         }
 
         private void ReleaseLocks()

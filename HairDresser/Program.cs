@@ -51,6 +51,8 @@ namespace HairDresser
             hairDresserD.Join();
             hairDresserE.Join();
             hairDresserF.Join();
+
+            Console.WriteLine("\nAll the hairdressers has gone home...");
             Console.ReadKey();
 
         }
